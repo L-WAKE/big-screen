@@ -1,4 +1,12 @@
 <p align="center">
+<a href="https://gitee.com/activity/2025opensource?ident=IRAHY5" target="_blank">
+
+  <h2>
+  帮孩子投个票吧，靴靴🫶！！！（我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧👈~）
+  </h2>
+</a>
+</p>
+<p align="center">
   <a
       href="https://ai.goviewlink.com/saas/"
       target="_blank"
