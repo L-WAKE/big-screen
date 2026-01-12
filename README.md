@@ -1,10 +1,3 @@
-<p align="center">
-<a href="https://gitee.com/activity/2025opensource?ident=IRAHY5" target="_blank">
-  <h2>
-  帮孩子投个票吧，靴靴🫶！！！（我正在参加 Gitee 2025 最受欢迎的开源软件投票活动，快来给我投票吧👈~）
-  </h2>
-<img src="readme/go-view-gitee-2025-100.png" alt="go-view" style="width: 100%;" width="100%"/>
-</a>
 </p>
 <p align="center">
   <a
@@ -31,7 +24,6 @@
 <img src="https://gitee.com/dromara/go-view/badge/star.svg?theme=gvp" style="position: relative; display: inline-block; top: 6px; border-radius: 0px;" />
 <img src="https://gitcode.com/GoView/go-view/star/badge.svg" style="display: inline-block; position: relative; top: 4px;">
 </h4>
-
 
 #### 长期赞助商
 
@@ -73,6 +65,19 @@
       ">
       <img src="readme/sponsors/mdy-banner.png" alt="go-view" style="width: 270px;" width="270px"/>
     </a>
+      <a
+      href="https://doc.hummingbird.winc-link.com?from=Goview"
+      target="_blank"
+      style="
+        padding: 10px 20px;
+        display: inline-block;
+        border-radius: 10px;
+        background: #f9f9f9;
+      ">
+      <img src="readme/sponsors/yingchuang-banner.png" alt="go-view" style="width: 270px;" width="270px"/>
+    </a>
+    <br/>
+    <br/>
     <a
       href="https://www.mtruning.club/chengDan/index.html"
       target="_blank"
@@ -168,10 +173,10 @@ Cloud IDE 代码在线预览地址：[https://idegitee.com/dromara/go-view](http
 
 开发环境:
 
-| 名称 | 版本    | 名称    | 版本  |
-| ---- | ------- | ------- | ----- |
-| node | 18.20.x | npm     | 10.7.x|
-| pnpm | 8.6.7   | windows | 11    |
+| 名称 | 版本    | 名称    | 版本   |
+| ---- | ------- | ------- | ------ |
+| node | 18.20.x | npm     | 10.7.x |
+| pnpm | 8.6.7   | windows | 11     |
 
 已完成图表：
 
