@@ -224,4 +224,8 @@ QQ 群：687586375
 
 体验地址： <a href="https://ai.goviewlink.com/saas/" target="_blank">https://ai.goviewlink.com/saas/</a>
 
+<p align="center">
+  <img width="260px" src="readme/go-view-pro-ai.png" alt="GoViewProAI" style="border-radius: 4px" />
+</p>
+
 ![渲染海报](readme/logo-poster.png)
