@@ -110,7 +110,10 @@
     <div class="go-login-box-footer">
       <layout-footer></layout-footer>
     </div>
+    <go-view-pro-ai></go-view-pro-ai>
   </div>
+  <!-- pro -->
+   <GoViewProAI></GoViewProAI>
 </template>
 
 <script lang="ts" setup>
@@ -122,10 +125,12 @@ import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
 import { LayoutFooter } from '@/layout/components/LayoutFooter'
+import { GoViewProAI } from '@/components/Tips/GoViewProAI'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
 import { routerTurnByName, cryptoEncode, setLocalStorage } from '@/utils'
+
 const { GO_LOGIN_INFO_STORE } = StorageEnum
 
 const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
