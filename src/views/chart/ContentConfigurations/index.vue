@@ -166,7 +166,7 @@ const chartsTabList = [
 </script>
 
 <style lang="scss" scoped>
-::v-deep .n-layout-toggle-bar {
+::v-deep .n-layout-sider {
   z-index: 9;
 }
 @include go(content-configurations) {
