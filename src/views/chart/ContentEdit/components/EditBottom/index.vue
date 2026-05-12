@@ -62,9 +62,14 @@ import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasTypeEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
 import { useChartLayoutStore } from '@/store/modules/chartLayoutStore/chartLayoutStore'
-import { ChartLayoutStoreEnum } from '@/store/modules/chartLayoutStore/chartLayoutStore.d'
 
 const { LockClosedOutlineIcon, LockOpenOutlineIcon } = icon.ionicons5
+
+const props = defineProps<{
+  reset?: () => void
+  zoomIn?: () => void
+  zoomOut?: () => void
+}>()
 
 // 全局颜色
 const designStore = useDesignStore()
@@ -105,8 +110,7 @@ const filterValue = ref('')
 const selectHandle = (v: number) => {
   selectInstRef.value?.blur()
   if (v === 0) {
-    chartLayoutStore.setItemUnHandle(ChartLayoutStoreEnum.RE_POSITION_CANVAS, true)
-    chartEditStore.computedScale()
+    props.reset?.()
     return
   }
   chartEditStore.setScale(v / 100)

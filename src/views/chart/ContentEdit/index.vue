@@ -1,5 +1,4 @@
 <template>
-  <!-- <edit-rule></edit-rule> -->
   <content-box
     id="go-chart-edit-layout"
     :flex="true"
@@ -13,7 +12,7 @@
     @dragover="dragoverHandle"
     @dragenter="dragoverHandle"
   >
-    <edit-rule>
+    <edit-rule ref="editRuleRef">
       <!-- 画布主体 -->
       <div id="go-chart-edit-content" @contextmenu="handleContextMenu">
         <!-- 展示 -->
@@ -30,7 +29,7 @@
               <!-- 分组 -->
               <edit-group
                 v-if="item.isGroup"
-                :groupData="(item as CreateComponentGroupType)"
+                :groupData="item as CreateComponentGroupType"
                 :groupIndex="index"
               ></edit-group>
 
@@ -40,9 +39,9 @@
                 :data-id="item.id"
                 :index="index"
                 :style="{
-                ...useComponentStyle(item.attr, index),
-                ...getBlendModeStyle(item.styles) as any
-              }"
+                  ...useComponentStyle(item.attr, index),
+                  ...(getBlendModeStyle(item.styles) as any),
+                }"
                 :item="item"
                 @click="mouseClickHandle($event, item)"
                 @mousedown="mousedownHandle($event, item)"
@@ -77,13 +76,17 @@
 
     <!-- 底部控制 -->
     <template #bottom>
-      <EditBottom></EditBottom>
+      <EditBottom
+        :reset="editRuleMethods.reset"
+        :zoom-in="editRuleMethods.zoomIn"
+        :zoom-out="editRuleMethods.zoomOut"
+      ></EditBottom>
     </template>
   </content-box>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, computed, provide, watch } from 'vue'
+import { onMounted, computed, provide, watch, ref } from 'vue'
 import { chartColors } from '@/settings/chartThemes/index'
 import { MenuEnum } from '@/enums/editPageEnum'
 import { CreateComponentType, CreateComponentGroupType } from '@/packages/index.d'
@@ -181,6 +184,13 @@ const rangeStyle = computed(() => {
 // 处理全局的 vChart 主题
 useInitVChartsTheme(chartEditStore)
 
+const editRuleRef = ref()
+const editRuleMethods = {
+  reset: () => editRuleRef.value?.reset?.(),
+  zoomIn: () => editRuleRef.value?.zoomIn?.(),
+  zoomOut: () => editRuleRef.value?.zoomOut?.()
+}
+
 // 键盘事件
 onMounted(() => {
   useAddKeyboard()
@@ -197,6 +207,7 @@ onMounted(() => {
 
   @include goId('chart-edit-content') {
     overflow: hidden;
+    height: 100%;
     @extend .go-transition;
     @include fetch-theme('box-shadow');
 
