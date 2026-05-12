@@ -111,8 +111,8 @@ importers:
         specifier: ^0.2.5-beta
         version: 0.2.5-beta(@vue/compiler-sfc@3.5.16)(vue@3.5.16(typescript@4.6.3))
       vue3-sketch-ruler:
-        specifier: ^1.3.3
-        version: 1.3.16(vue@3.5.16(typescript@4.6.3))
+        specifier: ^2.4.1
+        version: 2.4.1
       vuedraggable:
         specifier: ^4.1.0
         version: 4.1.0(vue@3.5.16(typescript@4.6.3))
@@ -3946,18 +3946,8 @@ packages:
       '@vue/compiler-sfc': '>=3.0.0'
       vue: '>=3.0.0'
 
-  vue3-sketch-ruler@1.3.16:
-    resolution: {integrity: sha512-k/TBOwbueU9eWOF7k/emsZMwtEqFk/FxG+h//TlaZ2B8RWbxhIe6hPFgggO4Jng10ARsuH4cMGAR+ZOuN4ozgg==}
-    deprecated: This version is deprecated. Please upgrade to version 2X for better features and performance.See https://github.com/kakajun/vue3-sketch-ruler
-    hasBin: true
-    peerDependencies:
-      '@vue/composition-api': ^1.1.0
-      vue: ^2.6.0 || ^3.2.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-      vue:
-        optional: true
+  vue3-sketch-ruler@2.4.1:
+    resolution: {integrity: sha512-TMMJ5v3cqDA94DPUa1iFHBx4D+FqEqpNXwzGU310aaMDllqyvyFfZigBFryeCRO7Q7EuOD5J5Zwc++LOCHB7Jw==}
 
   vue@3.5.16:
     resolution: {integrity: sha512-rjOV2ecxMd5SiAmof2xzh2WxntRcigkX/He4YFJ6WdRvVUrbt6DxC1Iujh10XLl8xCDRDtGKMeO3D+pRQ1PP9w==}
@@ -4323,7 +4313,7 @@ snapshots:
       '@types/node': 20.5.1
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.8.3)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.8.3))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3))(typescript@5.8.3)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@4.6.3))(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.6.3))(typescript@5.8.3)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5556,7 +5546,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@5.8.3))(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3))(typescript@5.8.3):
+  cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.1)(cosmiconfig@8.3.6(typescript@4.6.3))(ts-node@10.9.2(@types/node@16.18.126)(typescript@4.6.3))(typescript@5.8.3):
     dependencies:
       '@types/node': 20.5.1
       cosmiconfig: 8.3.6(typescript@5.8.3)
@@ -8186,9 +8176,7 @@ snapshots:
       '@vue/compiler-sfc': 3.5.16
       vue: 3.5.16(typescript@4.6.3)
 
-  vue3-sketch-ruler@1.3.16(vue@3.5.16(typescript@4.6.3)):
-    optionalDependencies:
-      vue: 3.5.16(typescript@4.6.3)
+  vue3-sketch-ruler@2.4.1: {}
 
   vue@3.5.16(typescript@4.6.3):
     dependencies:
