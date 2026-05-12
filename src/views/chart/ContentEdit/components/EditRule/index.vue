@@ -30,6 +30,7 @@ import type { CSSProperties } from 'vue'
 import { listen } from 'dom-helpers'
 import { useDesignStore } from '@/store/modules/designStore/designStore'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
+import { CreateComponentGroupType } from '@/packages/index.d'
 import throttle from 'lodash/throttle'
 
 const chartEditStore = useChartEditStore()
@@ -71,7 +72,7 @@ const paletteStyle = computed(() => {
         longfgColor: '#4d4d4d',
         shortfgColor: '#4d4d4d',
         fontColor: '#4d4d4d',
-        shadowColor: '#18181c',
+        shadowColor: '#232324',
         borderColor: '#18181c',
         cornerActiveColor: '#18181c'
       }
@@ -89,13 +90,50 @@ const canvasStyle = computed((): CSSProperties => {
     height: `${height.value}px`
   }
 })
+// 根据 id 查找组件（含分组内子组件）
+const findComponentById = (id: string) => {
+  for (const item of chartEditStore.getComponentList) {
+    if (item.id === id) return item
+    if (item.isGroup) {
+      const child = (item as CreateComponentGroupType).groupList.find(c => c.id === id)
+      if (child) return child
+    }
+  }
+  return null
+}
+
 // 阴影（画布在标尺坐标系中的位置，从 thick 偏移开始）
 const shadow = computed(() => {
+  const selectIds = chartEditStore.getTargetChart.selectId
+  if (!selectIds.length) {
+    return { x: 0, y: 0, width: 0, height: 0 }
+  }
+
+  let minX = Infinity
+  let minY = Infinity
+  let maxX = -Infinity
+  let maxY = -Infinity
+
+  for (const id of selectIds) {
+    const comp = findComponentById(id)
+    if (comp) {
+      const { x, y, w, h } = comp.attr
+      minX = Math.min(minX, x)
+      minY = Math.min(minY, y)
+      maxX = Math.max(maxX, x + w)
+      maxY = Math.max(maxY, y + h)
+    }
+  }
+
+  if (minX === Infinity) {
+    return { x: 0, y: 0, width: 0, height: 0 }
+  }
+
   return {
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 200
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY
   }
 })
 
