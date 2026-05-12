@@ -30,18 +30,6 @@
 <div>
   <div align="center" style="column-gap: 20px;">
     <a
-      href="http://www.ccflow.org/?from=goviewGitee"
-      target="_blank"
-      style="
-        padding: 10px 20px;
-        display: inline-block;
-        border-radius: 10px;
-        background: #f9f9f9;
-      ">
-      <img src="readme/sponsors/ccflow-banner.png" alt="go-view" style="width: 250px;" width="250px" />
-    </a>
-    <span> &nbsp;</span>
-    <a
       href="https://fastbee.cn/"
       target="_blank"
       style="
@@ -52,9 +40,8 @@
       ">
       <img src="readme/sponsors/fb-banner.gif" alt="go-view" style="width: 250px;" width="250px"/>
     </a>
-    <br/>
-    <br/>
-    <a
+    <span> &nbsp;</span>
+   <a
       href="https://www.mingdao.com?s=utm_88&utm_source=Goview&utm_medium=banner&utm_campaign=gitee&utm_content=IT%E8%B5%8B%E8%83%BD%E4%B8%9A%E5%8A%A1"
       target="_blank"
       style="
@@ -65,7 +52,9 @@
       ">
       <img src="readme/sponsors/mdy-banner.png" alt="go-view" style="width: 270px;" width="270px"/>
     </a>
-      <a
+    <br/>
+    <br/>
+    <a
       href="https://doc.hummingbird.winc-link.com?from=Goview"
       target="_blank"
       style="
@@ -76,8 +65,7 @@
       ">
       <img src="readme/sponsors/yingchuang-banner.png" alt="go-view" style="width: 270px;" width="270px"/>
     </a>
-    <br/>
-    <br/>
+    <span> &nbsp;</span>
     <a
       href="https://www.mtruning.club/chengDan/index.html"
       target="_blank"
