@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { icon } from '@/plugins'
 import { DialogEnum } from '@/enums/pluginEnum'
 import { dialogIconSize } from '@/settings/designSetting'
@@ -97,12 +98,26 @@ export const goDialog = (
     }
   }
 
+  const { content: customContent, ...restParams } = params
+  const defaultContent = typeObj[type || DialogEnum.WARNING]['message']
+  const resolveContent = () => {
+    if (!customContent) return defaultContent
+    if (message) {
+      return () =>
+        h('motion-div', { class: 'go-dialog-custom-content' }, [
+          h('p', { style: 'margin: 0 0 12px' }, message),
+          typeof customContent === 'function' ? customContent() : customContent
+        ])
+    }
+    return customContent
+  }
+
   const dialog: DialogReactive = typeObj[type || DialogEnum.WARNING]['fn']({
     // 导入其余 NaiveUI 支持参数
-    ...params,
+    ...restParams,
     title: title || '提示',
     icon: renderIcon(InformationCircleIcon, { size: dialogIconSize }),
-    content: typeObj[type || DialogEnum.WARNING]['message'],
+    content: resolveContent(),
     positiveText: positiveText || '确定',
     negativeText: closeNegativeText ? undefined : (negativeText || '取消'),
     // 是否通过遮罩关闭

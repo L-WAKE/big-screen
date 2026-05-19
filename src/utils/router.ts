@@ -104,6 +104,7 @@ export const reloadRoutePage = () => {
  * * 退出
  */
 export const logout = () => {
+  clearLocalStorage(StorageEnum.GO_ACCESS_TOKEN_STORE)
   clearLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
   routerTurnByName(PageEnum.BASE_LOGIN_NAME)
 }
@@ -176,18 +177,14 @@ export const goHome = () => {
 }
 
 /**
- * * 判断是否登录（现阶段是有 login 数据即可）
+ * * 判断是否登录（检查token是否存在）
  * @return boolean
  */
 export const loginCheck = () => {
   try {
-    const info = getLocalStorage(StorageEnum.GO_LOGIN_INFO_STORE)
-    if (!info) return false
-    const decodeInfo = cryptoDecode(info)
-    if (decodeInfo) {
-      return true
-    }
-    return false
+    const tokenInfo = getLocalStorage(StorageEnum.GO_ACCESS_TOKEN_STORE)
+    if (!tokenInfo || !tokenInfo.tokenValue) return false
+    return true
   } catch (error) {
     return false
   }

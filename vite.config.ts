@@ -63,9 +63,9 @@ export default defineConfig({
     viteMockServe({
       mockPath: '/src/api/mock',
       // 开发打包开关
-      localEnabled: true,
+      localEnabled: false,
       // 生产打包开关
-      prodEnabled: true,
+      prodEnabled: false,
       // 打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
       supportTs: true,
       // 监视文件更改

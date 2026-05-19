@@ -110,10 +110,7 @@
     <div class="go-login-box-footer">
       <layout-footer></layout-footer>
     </div>
-    <go-view-pro-ai></go-view-pro-ai>
   </div>
-  <!-- pro -->
-   <GoViewProAI></GoViewProAI>
 </template>
 
 <script lang="ts" setup>
@@ -125,13 +122,13 @@ import { GoThemeSelect } from '@/components/GoThemeSelect'
 import { GoLangSelect } from '@/components/GoLangSelect'
 import { LayoutHeader } from '@/layout/components/LayoutHeader'
 import { LayoutFooter } from '@/layout/components/LayoutFooter'
-import { GoViewProAI } from '@/components/Tips/GoViewProAI'
 import { PageEnum } from '@/enums/pageEnum'
 import { icon } from '@/plugins'
 import { StorageEnum } from '@/enums/storageEnum'
-import { routerTurnByName, cryptoEncode, setLocalStorage } from '@/utils'
+import { routerTurnByName, setLocalStorage } from '@/utils'
+import { sysLogin } from '@/api/modules/sys'
 
-const { GO_LOGIN_INFO_STORE } = StorageEnum
+const { GO_ACCESS_TOKEN_STORE, GO_LOGIN_INFO_STORE } = StorageEnum
 
 const { PersonOutlineIcon, LockClosedOutlineIcon } = icon.ionicons5
 
@@ -176,9 +173,6 @@ const rules = {
   },
 }
 
-// 定时器
-const shuffleTimiing = ref()
-
 // 轮播图
 const carouselImgList = ['one', 'two', 'three']
 
@@ -202,7 +196,7 @@ const getImageUrl = (name: string, folder: string) => {
 
 // 打乱
 const shuffleHandle = () => {
-  shuffleTimiing.value = setInterval(() => {
+  setInterval(() => {
     bgList.value = shuffle(bgList.value)
   }, carouselInterval)
 }
@@ -214,17 +208,21 @@ const handleSubmit = (e: Event) => {
     if (!errors) {
       const { username, password } = formInline
       loading.value = true
-      setLocalStorage(
-        GO_LOGIN_INFO_STORE,
-        cryptoEncode(
-          JSON.stringify({
-            username,
-            password,
-          })
-        )
-      )
-      window['$message'].success(`${t('login.login_success')}!`)
-      routerTurnByName(PageEnum.BASE_HOME_NAME, true)
+      try {
+        const res = await sysLogin({ username, password })
+        if (res.code === 0) {
+          setLocalStorage(GO_ACCESS_TOKEN_STORE, res.data.token)
+          setLocalStorage(GO_LOGIN_INFO_STORE, res.data.userinfo)
+          window['$message'].success(`${t('login.login_success')}!`)
+          routerTurnByName(PageEnum.BASE_HOME_NAME, true)
+        } else {
+          window['$message'].error(res.msg || `${t('login.login_message')}!`)
+        }
+      } catch (err) {
+        window['$message'].error(`${t('login.login_message')}!`)
+      } finally {
+        loading.value = false
+      }
     } else {
       window['$message'].error(`${t('login.login_message')}!`)
     }

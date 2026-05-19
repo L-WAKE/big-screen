@@ -1,6 +1,7 @@
 import { Router } from 'vue-router';
 import { PageEnum } from '@/enums/pageEnum'
-import { loginCheck } from '@/utils'
+import { getLocalStorage } from '@/utils/storage'
+import { StorageEnum } from '@/enums/storageEnum'
 
 export function createRouterGuards(router: Router) {
   // 前置
@@ -8,7 +9,7 @@ export function createRouterGuards(router: Router) {
     // http://localhost:3000/#/chart/preview/792622755697790976?t=123
     // 把外部动态参数放入window.route.params，后续API动态接口可以用window.route?.params?.t来拼接参数
     // @ts-ignore
-    if (!window.route) window.route = {params: {}}
+    if (!window.route) window.route = { params: {} }
     // @ts-ignore
     Object.assign(window.route.params, to.query)
 
@@ -19,13 +20,20 @@ export function createRouterGuards(router: Router) {
       next({ name: PageEnum.ERROR_PAGE_NAME_404 })
     }
 
-    if (!loginCheck()) {
+    const tokenInfo = getLocalStorage(StorageEnum.GO_ACCESS_TOKEN_STORE)
+    if (!tokenInfo || !tokenInfo.tokenValue) {
       if (to.name === PageEnum.BASE_LOGIN_NAME) {
         next()
+      } else {
+        next({ name: PageEnum.BASE_LOGIN_NAME })
       }
-      next({ name: PageEnum.BASE_LOGIN_NAME })
+    } else {
+      if (to.name === PageEnum.BASE_LOGIN_NAME) {
+        next({ name: PageEnum.BASE_HOME_NAME })
+      } else {
+        next()
+      }
     }
-    next()
   })
 
   router.afterEach((to, _, failure) => {

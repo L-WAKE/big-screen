@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, computed } from 'vue'
+import { ref, nextTick, computed, watch } from 'vue'
 import { fetchRouteParamsLocation, setTitle } from '@/utils'
 import { useChartEditStore } from '@/store/modules/chartEditStore/chartEditStore'
 import { EditCanvasConfigEnum } from '@/store/modules/chartEditStore/chartEditStore.d'
@@ -43,13 +43,22 @@ const inputInstRef = ref(null)
 // 根据路由 id 参数获取项目信息
 const fetchProhectInfoById = () => {
   const id = fetchRouteParamsLocation()
-  if (id.length) {
-    return id[0]
+  if (id) {
+    return id
   }
   return ''
 }
 
 const title = ref<string>(fetchProhectInfoById() || '')
+
+watch(
+  () => chartEditStore.getEditCanvasConfig.projectName,
+  (newName?: string) => {
+    if (newName && !focus.value) {
+      title.value = newName
+    }
+  }
+)
 
 const comTitle = computed(() => {
   // eslint-disable-next-line vue/no-side-effects-in-computed-properties

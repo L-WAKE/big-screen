@@ -2,17 +2,8 @@
   <div v-if="cardData" class="go-items-list-card">
     <n-card hoverable size="small">
       <div class="list-content">
-        <!-- 顶部按钮 -->
-        <div class="list-content-top">
-          <mac-os-control-btn
-            class="top-btn"
-            :hidden="['remove']"
-            @close="deleteHanlde"
-            @resize="resizeHandle"
-         ></mac-os-control-btn>
-        </div>
         <!-- 中间 -->
-        <div class="list-content-img" @click="resizeHandle">
+        <div class="list-content-img" @click="previewHandle">
           <n-image
             object-fit="contain"
             height="180"
@@ -84,24 +75,20 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, PropType } from 'vue'
+import { reactive, computed, PropType } from 'vue'
 import { renderIcon, renderLang,  requireErrorImg } from '@/utils'
 import { icon } from '@/plugins'
-import { MacOsControlBtn } from '@/components/Tips/MacOsControlBtn'
 import { Chartype } from '../../index.d'
-import { log } from 'console'
 const {
   EllipsisHorizontalCircleSharpIcon,
-  CopyIcon,
   TrashIcon,
   PencilIcon,
-  DownloadIcon,
   BrowsersOutlineIcon,
   HammerIcon,
   SendIcon
 } = icon.ionicons5
 
-const emit = defineEmits(['delete', 'resize', 'edit'])
+const emit = defineEmits(['delete', 'edit', 'preview', 'publish', 'rename'])
 
 const props = defineProps({
   cardData: Object as PropType<Chartype>
@@ -125,11 +112,16 @@ const fnBtnList = reactive([
   }
 ])
 
-const selectOptions = ref([
+const selectOptions = computed(() => [
   {
     label: renderLang('global.r_preview'),
     key: 'preview',
     icon: renderIcon(BrowsersOutlineIcon)
+  },
+  {
+    label: renderLang('global.r_rename'),
+    key: 'rename',
+    icon: renderIcon(PencilIcon)
   },
   {
     label: props.cardData?.release
@@ -153,6 +145,15 @@ const handleSelect = (key: string) => {
     case 'edit':
       editHandle()
       break
+    case 'preview':
+      previewHandle()
+      break
+    case 'send':
+      publishHandle()
+      break
+    case 'rename':
+      renameHandle()
+      break
   }
 }
 
@@ -166,9 +167,19 @@ const editHandle = () => {
   emit('edit', props.cardData)
 }
 
-// 放大处理
-const resizeHandle = () => {
-  emit('resize', props.cardData)
+// 预览处理
+const previewHandle = () => {
+  emit('preview', props.cardData)
+}
+
+// 发布处理
+const publishHandle = () => {
+  emit('publish', props.cardData)
+}
+
+// 重命名处理
+const renameHandle = () => {
+  emit('rename', props.cardData)
 }
 </script>
 
@@ -183,18 +194,11 @@ $contentHeight: 180px;
     @include hover-border-color('hover-border-color');
   }
   .list-content {
-    margin-top: 20px;
     margin-bottom: 5px;
     cursor: pointer;
     border-radius: $--border-radius-base;
     @include background-image('background-point');
     @extend .go-point-bg;
-    &-top {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      height: 22px;
-    }
     &-img {
       height: $contentHeight;
       @extend .go-flex-center;
